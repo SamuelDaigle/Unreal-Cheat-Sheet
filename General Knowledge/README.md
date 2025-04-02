@@ -5,6 +5,7 @@ Contains advices on architecture and general usages of Unreal Engine
 
 ### Sections
 - [Data Structures and Algorithms](Data%20Structures%20and%20Algorithms.md)
+- [Design Patterns](Design%20Patterns.md)
 - [Memory Management](Memory%20Management.md)
 - [Native Programming](Native%20Programming.md)
 

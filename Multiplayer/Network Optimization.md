@@ -11,7 +11,7 @@ Instead of sending the whole UPROPERTY values through the network, you can send 
 Iris Plugin : https://dev.epicgames.com/documentation/en-us/unreal-engine/iris-replication-system-in-unreal-engine
 
 ## Data compression
-Using `UE::Net::SerializeQuantizedVector`, or a quantized vector struct is essential to reduce network bandwidth by compressing data.
+Using `UE::Net::SerializeQuantizedVector`, or a quantized vector struct like `FVector_NetQuantize10`, is essential to reduce network bandwidth by compressing data.
 
 Use FArchive during serialization to compress and decompress various data types and messaging to prepare for replication.
 
