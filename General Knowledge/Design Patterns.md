@@ -224,6 +224,8 @@ Create a unified interface for different implementation. View [interfaces](Nativ
 
 ### Command Pattern
 Used for encapsulating requested actions, allowing undo/redo functionalities. Useful for editor tools.
+
+In Unreal Engine, calling SetFlags(RF_Transactional) when starting object modification, then FScopedTransaction with Object->Modify() at every modification is a great way to bind to the editor's undo system.
 ```cpp
 class IEditorCommand
 {

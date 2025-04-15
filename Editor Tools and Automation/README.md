@@ -13,9 +13,9 @@ Scripted action types:
 
 ### Designing user-friendly tools
 Editor tools should be non-destructive and have a single action : 
-- A single undo should revert the tool's changes. Be careful of `RF_Transactional` objects and operations done within the tool.
+- A single undo should revert the tool's changes. Use `FScopedTransaction` with `Object->Modify()` and `RF_Transactional` operations to affect unreal's undo system.
 - The tools should not save or checkout files automatically.
-- Failures should not impact keep files in their original state.
+- Keep files in their original state when failures happen.
 - Allow users to cancel the operation at any time.
 
 Use `FScopedSlowTask` to implement a progress bar on operations that takes more than one second.

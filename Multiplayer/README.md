@@ -1,12 +1,12 @@
 [Home](../README.md) > [Multiplayer](README.md)  
-Related Pages : [Replication Roles](Replication%20Roles.md) • [Lag Compensation](Lag%20Compensation.md) • [Network Optimization](Network%20Optimization.md) • [Replication Graph](ReplicationGraph.md) • [Anti-Cheat](Anticheat/README.md) • [Distributed Servers](Distributed%20Servers.md) • [Online & Backend](../Online/README.md)
+Related Pages : [Replication Roles](Replication%20Roles.md) • [Lag Compensation](Lag%20Compensation/README.md) • [Network Optimization](Network%20Optimization.md) • [Replication Graph](ReplicationGraph.md) • [Anti-Cheat](Anticheat/README.md) • [Distributed Servers](Distributed%20Servers.md) • [Online & Backend](../Online/README.md)
 
 # Multiplayer
 Networking and multiplayer practices to develop bug-free server-authoritative multiplayer experiences.
 
 ### Sections
 - [Replication Roles](Replication%20Roles.md)
-- [Lag Compensation](Lag%20Compensation.md)
+- [Lag Compensation](Lag%20Compensation/README.md)
 - [Network Optimization](Network%20Optimization.md)
 - [Replication Graph](ReplicationGraph.md)
 - [Anti-Cheat](Anticheat/README.md)

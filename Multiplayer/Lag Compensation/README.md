@@ -1,4 +1,4 @@
-[Home](../README.md) > [Multiplayer](README.md) > [Lag Compensation](Lag%20Compensation.md)
+[Home](../../README.md) > [Multiplayer](../README.md) > [Lag Compensation](README.md)
 # Lag Compensation
 Lag compensation works by maintaining historical game states and "rewinding" the game to a previous state to process actions, ensuring accurate gameplay despite network delays.
 

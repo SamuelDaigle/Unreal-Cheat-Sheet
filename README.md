@@ -14,11 +14,12 @@ Unreal Cheat Sheet is a concise, no-nonsense reference for Unreal Engine develop
 ### **Core Topics**  
 🔹 **[General Knowledge](<General Knowledge/README.md>)** – Essential Unreal concepts & architecture decisions.  
 &nbsp;&nbsp;&nbsp;&nbsp;▸ **[Data Structures & Algorithms](<General Knowledge/Data Structures and Algorithms.md>)**  
+&nbsp;&nbsp;&nbsp;&nbsp;▸ **[Design Patterns](<General Knowledge/Design Patterns.md>)**  
 &nbsp;&nbsp;&nbsp;&nbsp;▸ **[Memory Management](<General Knowledge/Memory Management.md>)**  
 &nbsp;&nbsp;&nbsp;&nbsp;▸ **[Native Programming](<General Knowledge/Native Programming.md>)**  
 
 🔹 **[Multiplayer & Online](<Multiplayer/README.md>)** –  Concepts behind networking, replication, lag compensation, and server performance for multiplayer games.  
-&nbsp;&nbsp;&nbsp;&nbsp;▸ **[Lag Compensation](<Multiplayer/Lag Compensation.md>)**  
+&nbsp;&nbsp;&nbsp;&nbsp;▸ **[Lag Compensation](<Multiplayer/Lag Compensation/README.md>)**  
 &nbsp;&nbsp;&nbsp;&nbsp;▸ **[Network Optimization](<Multiplayer/Network Optimization.md>)**  
 &nbsp;&nbsp;&nbsp;&nbsp;▸ **[Replication Roles](<Multiplayer/Replication Roles.md>)**  
 &nbsp;&nbsp;&nbsp;&nbsp;▸ **[Online Services & Backend](<Online/README.md>)**  

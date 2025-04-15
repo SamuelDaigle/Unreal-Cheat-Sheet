@@ -10,6 +10,7 @@ General usages in c++ programming.
 - `UE_PREFETCH(x)` : Preloads memory locations into cache, reducing cache misses.
 - `ensure(x)` logs a warning & execution continues (slower than check). `check(x)` crashes in Debug & Development builds and is removed in Shipping builds unless config is changed. `UE_ASSUME(x)` optimizes out code that would handle the failure.
 - `MoveTemp(array)` : Moves ownership of an array without copying it.
+- `ForceInitToZero` : When initializing properties in constructor.
 
 ## Events
 Use static delegates for better performance. Use dynamic delegates for flexibility and blueprint usages.
