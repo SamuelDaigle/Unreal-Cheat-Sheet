@@ -1,23 +1,16 @@
 # Unreal Cheat Sheet
 
 ## Introduction
-Unreal Cheat Sheet is a concise, no-nonsense reference for Unreal Engine developers who need quick, practical answers. Whether you're tackling multiplayer replication, optimizing performance, or refining gameplay, this guide distills key concepts, best practices, and frequent implementations into an easy-to-navigate format.
+Unreal Cheat Sheet is a concise reference for Unreal Engine developers who need quick and practical answers.
 
-### Who is This For?
-
-- Unreal Engine developers who need quick, practical references.
-- Multiplayer and network engineers optimizing network performance.
-- Anyone building scalable, optimized gameplay systems.
-
-## Subjects  
-
-### **Core Topics**  
+[![System Architecture –  Essential Unreal concepts & architecture decisions.](./Images/SystemArchitecture.png)](<General Knowledge/README.md>)
 🔹 **[General Knowledge](<General Knowledge/README.md>)** – Essential Unreal concepts & architecture decisions.  
 &nbsp;&nbsp;&nbsp;&nbsp;▸ **[Data Structures & Algorithms](<General Knowledge/Data Structures and Algorithms.md>)**  
 &nbsp;&nbsp;&nbsp;&nbsp;▸ **[Design Patterns](<General Knowledge/Design Patterns.md>)**  
 &nbsp;&nbsp;&nbsp;&nbsp;▸ **[Memory Management](<General Knowledge/Memory Management.md>)**  
 &nbsp;&nbsp;&nbsp;&nbsp;▸ **[Native Programming](<General Knowledge/Native Programming.md>)**  
 
+[![Multiplayer & Online –  Concepts behind networking, replication, lag compensation, and server performance for multiplayer games.](./Images/Multiplayer.png)](<Multiplayer/README.md>)
 🔹 **[Multiplayer & Online](<Multiplayer/README.md>)** –  Concepts behind networking, replication, lag compensation, and server performance for multiplayer games.  
 &nbsp;&nbsp;&nbsp;&nbsp;▸ **[Lag Compensation](<Multiplayer/Lag Compensation/README.md>)**  
 &nbsp;&nbsp;&nbsp;&nbsp;▸ **[Network Optimization](<Multiplayer/Network Optimization.md>)**  
@@ -26,9 +19,19 @@ Unreal Cheat Sheet is a concise, no-nonsense reference for Unreal Engine develop
 &nbsp;&nbsp;&nbsp;&nbsp;▸ **[Anti-Cheat](<Multiplayer/Anticheat/README.md>)**  
 &nbsp;&nbsp;&nbsp;&nbsp;▸ **[Distributed Servers](<Multiplayer/Distributed Servers.md>)**  
 
-🔹 **[Optimization](<Optimization/README.md>)** – Techniques for improving client performance and reducing server costs in large-scale games.  
+[![Optimization –  Techniques for improving client performance and reducing server costs in large-scale games.](./Images/Optimization.png)](<Optimization/README.md>)
+🔹 **[Optimization](<Optimization/README.md>)** –  Techniques for improving client performance and reducing server costs in large-scale games.  
+&nbsp;&nbsp;&nbsp;&nbsp;▸ **[Profiling](<Optimization/Profiling.md>)**  
+&nbsp;&nbsp;&nbsp;&nbsp;▸ **[CPU Optimization](<Optimization/CPUOptimization.md>)**  
+&nbsp;&nbsp;&nbsp;&nbsp;▸ **[GPU Optimization](<Optimization/GPUOptimization.md>)**  
+&nbsp;&nbsp;&nbsp;&nbsp;▸ **[Memory Optimization](<Optimization/MemoryOptimization.md>)**  
 &nbsp;&nbsp;&nbsp;&nbsp;▸ **[Multithreading](<Optimization/Multithreading.md>)**  
 &nbsp;&nbsp;&nbsp;&nbsp;▸ **[Slate Optimization](<Optimization/Slate Optimization.md>)**  
+
+
+<!--🔹 **[Optimization](<Optimization/README.md>)**  
+&nbsp;&nbsp;&nbsp;&nbsp;▸ **[Multithreading](<Optimization/Multithreading.md>)**  
+&nbsp;&nbsp;&nbsp;&nbsp;▸ **[Slate Optimization](<Optimization/Slate Optimization.md>)**  -->
 
 
 ### Additional Topics  

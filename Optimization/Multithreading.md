@@ -63,15 +63,35 @@ public:
 ## Thread Synchronization
 Having threads require thread-safe communication to retrieve outputs.
 
+### Mutual exclusion
+Two threads can read and write the same object, but they must wait until the other thread unlocks its usage.
+
+**Mutex & Locks** : Using `FCriticalSection`, `FReadScopeLock`, `FWriteScopeLock` or `FScopeLock` to implement a mutex is necessary when reading or writing non-thread safe data. `TArray` and `TMap` are not thread safe.
+
+Careful not to call a function that locks the mutex while needing a locked mutex. To avoid this:
+- Limit the duration of the mutex by copying data then unlocking it.
+- Separate public API et private API. Public API uses locks while private API assumes it's already locked. Private functions can call other private functions, but not public ones.
+- RAII (Resource Acquisition Is Initialization) : Use FScopeLock to automatically release mutexes after it is released.
+
+### Double buffer
+Data is doubled where one version is being written to and the other one is read. They swap when the writing is entirely done. Can be done using an Atomic flag.
+
+**Atomic** : TAtomic with primitive types and pointers to have thread-safe flags, counters and states. Avoid the need for a mutex and locking for simple types.
+
+### Producer-Consumer messaging queues
+Have the TQueue on the consumer thread (game thread for example) and the other thread(s) can enqueue data safely to an SPSC or MPSC queue while the consumer thread dequeues it anytime.
+
+**TQueue** : TQueue is thread safe and doesn't need a mutex when there's a single consumer (game thread) and multiple providers (threads) using MPSC. You must use a FCriticalSection when there are multiple consumers.
+
+### Other ways
+
 **AsyncTask** : It's best to start a new AsyncTask from the thread using `ENamedThreads::GameThread` to return the result. Using TFuture is also possible to wait for completion in a non-blocking way.
 
 **TFuture** : Multiple thread management return a TFuture when creating a thread. Using `IsReady()` to detect if it's completed and `Get()` to get the output.
 
-**TQueue** : TQueue is thread safe and doesn't need a mutex when there's a single consumer (game thread) and multiple providers (threads). You must use a FCriticalSection when there are multiple consumers.
+**FEvent** : Make a thread sleep without using any CPU until another thread triggers the event. Useful when new data becomes available to process. `FEvent* WorkAvailable = FPlatformProcess::GetSynchEventFromPool(true);` to retrieve the event, `WorkAvailable->Wait();` to sleep and `WorkAvailable->Trigger();` to awake the thread.
 
-**Mutex & Locks** : Using `FCriticalSection`, `FReadScopeLock`, `FWriteScopeLock` or `FScopeLock` to implement a mutex is necessary when reading or writing non-thread safe data. `TArray` and `TMap` are not thread safe.
-
-**Atomic** : TAtomic with primitive types and pointers to have thread-safe flags, counters and states.
+Avoid Synchronization : Use Thread Graph, TQueue, Double Buffering, data copies.
 
 ## Organizing Threads using Task Graph
 **Task Creating and Communication**:

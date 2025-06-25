@@ -1,0 +1,38 @@
+[Home](../README.md) > [Optimization](README.md) > [CPU Optimization](CPUOptimization.md)
+# CPU Optimization
+
+## Game Trace
+
+General optimizations :
+- **Minimize Actor Ticking** : Use the command `dumpticks` and disable Ticking on as many actors as possible and use events to update logic instead.
+- **Value Caching** : Cache values of expensive functions, call these functions in separate threads with [multithreading](Multithreading.md). Consider using Proxy design.
+- **Async Asset Loading** : Async load all assets and keep soft references, see [Memory Management](../General%20Knowledge/Memory%20Management.md)
+- **Pool Reusable Actors** : Limit actor spawning and reuse frequently spawned actors with Actor Pooling.
+- **Clean Up Construction Scripts** : Don't have too much logic in construction scripts.
+- **Convert Blueprints to C++** : Convert blueprints to native.
+
+## Draw Trace
+| Problem | Solution |
+|------------------|-------------------|
+| Mesh draw call is too high<br/>(`stat scenerendering`) | Each draw call is a CPU process to send data for the GPU to render. Since the GPU is much faster to render triangles, you want to prepare less draw calls on the CPU, and make the GPU render more for each draw calls. To achieve that, you can : <ul><li>Merge actors with similar materials (Window > Developer Tools > Merge Actor Tool), then add LODs and reuse materials. You can merge materials with Simplygon.</li><li>Use `UHierarchicalInstancedStaticMeshComponent` (ISM & HISM) to create instances of a same mesh</li><li>Use [HierarchicalLOD (HLOD)](https://dev.epicgames.com/documentation/en-us/unreal-engine/hierarchical-level-of-detail-in-unreal-engine) to replace multiple Static Mesh Actors with single, combined Static Mesh Actor at long view distances.</li></ul> There is one render pass per material on an actor. Use Dithered LOD transition to have a smoother LOD change. |
+| Rendering out-of-view static meshes (`FreezeRendering`) | Stop rendering objects that are not visible on screen with occlusion. Unreal already has this enabled with Frustum Culling and you can alter the Distance Culling per object as well. Be sure to use [Precomputed Visibility Volume](https://dev.epicgames.com/documentation/en-us/unreal-engine/precomputed-visibility-volumes-in-unreal-engine) to cache occlusion of static objects when building the level. |
+
+Decide which features are a necessity for gameplay fairness and for the desired art style, and what can be disabled. Drawing less on lower end computer can significantly improve performance.
+
+### Description for each Render Thread tasks
+
+| **Render Thread Task**          | **What It Does**                                                                     | **Optimizations**                                                                                                                                                                                                                                                       |
+| ------------------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **InitViews**                   | Culls and prepares visible primitives, sets up view matrices and LOD selection       | • Enable **HLOD** in World Settings → Build HLOD clusters via HLOD Outliner  <br> • Use accurate **bounding boxes** (check for large bounds)<br> • Lower view distance: `r.ViewDistanceScale=0.8`<br> • Use baked/static lights where possible<br> • Avoid large numbers of small dynamic objects |
+| **RenderShadowDepths**          | Creates shadow maps for dynamic lights, including CSM for directional lights         | • Convert lights to **Stationary** or **Static** <br> • Lower shadow draw distance: `r.Shadow.DistanceScale=0.5`<br> • Reduce CSM cascades: `r.Shadow.CSM.MaxCascades=2`<br> • Disable shadows for small/background meshes (`Cast Shadows = false`)                                               |
+| **BasePass / StaticMeshDraw**   | Submits opaque geometry and static mesh draw calls                                   | • Use **Instanced Static Meshes** for repeated objects (e.g. fences, rocks)<br> • Merge actors with Merge Tool (Developer Tools)<br> • Convert dynamic props to **Static** <br> • Use **Nanite** on dense meshes<br> • Remove unnecessary material complexity                                     |
+| **Translucency**                | Draws all translucent (non-opaque) geometry — expensive due to overdraw & sort-order | • Reduce overlapping translucent FX (smoke, glass, UI)<br> • Prefer masked materials over translucent<br> • Cull non-visible particles with proper **bounds**<br> • Avoid translucent shadows when unnecessary                                                                                    |
+| **PostProcessing**              | Applies effects like bloom, tone mapping, motion blur, DoF                           | • Disable unused passes: `r.DefaultFeature.Bloom 0`, `r.MotionBlurQuality 0` <br> • Reduce screen percentage: `r.ScreenPercentage=85`<br> • Lower post-process volume quality settings                                                                                                            |
+| **Scene Captures**              | Renders a second view (e.g., for mirrors, security cameras, planar reflections)      | • Reduce capture frequency: `Capture Every N Frames` instead of every frame<br> • Use **lower resolution** for capture textures<br> • Use simpler materials in captured scene<br> • Replace real-time captures with baked cube maps if possible                                                   |
+| **Deferred Lighting / Shading** | Combines lighting data with GBuffer results                                          | • Minimize number of movable lights <br> • Disable dynamic shadows for non-interactive lights<br> • Prefer Stationary + baked GI combo<br> • Use Forward Shading if it reduces cost                                                                                                               |
+| **Volumetric Fog / Clouds**     | Computes 3D fog volumes and/or volumetric cloud layers                               | • Lower quality: `r.VolumetricFog.GridPixelSize=32`, `r.VolumetricRenderTarget=0`<br> • Disable in performance-sensitive levels<br> • Use baked fog cards for distant visuals                                                                                                                     |
+| **Niagara/Cascade Particles**   | CPU-side prep for GPU particle data, sorting, culling                                | • Reduce emitter spawn rate / lifetime <br> • Merge FX where possible <br> • Set bounding boxes to avoid rendering off-screen emitters<br> • Use fixed bounds and lower LODs                                                                                                                      |
+| **Virtual Textures / Nanite**   | Submits streaming/mip transitions and virtual geometry (if used)                     | • Reduce VT resolution settings<br> • Avoid frequent streaming transitions<br> • Make sure Nanite meshes are optimized (no ultra-fine detail)                                                                                                                                                     |
+
+
+© Samuel Daigle – Licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/).  
